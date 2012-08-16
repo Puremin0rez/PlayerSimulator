@@ -11,6 +11,9 @@ commands:
   spawn:
     description: Spawn a fake player at a random location
     permission: playersimulator.spawn
+  killbots:
+    description: Disconnect all fake players
+    permission: playersimulator.killbots
   debug:
     description: Show tick rate, memory usage, and number of chunks loaded
     permission: playersimulator.debug
@@ -21,6 +24,8 @@ permissions:
     children:
       playersimulator.spawn:
         description: Allow a player to spawn fake players
+      playersimulator.killbots:
+        description: Allow a player to kill off fake players
       playersimulator.debug:
         description: Allow a player to see debug info
 

@@ -1,9 +1,15 @@
 package com.probablycoding.bukkit.playersimulator;
 
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-import net.minecraft.server.*;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.ItemInWorldManager;
+import net.minecraft.server.ServerConfigurationManager;
+import net.minecraft.server.WorldServer;
+
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
@@ -27,29 +33,47 @@ public class PlayerSimulator extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (command.getName().equalsIgnoreCase("spawn")) {
-            WorldServer world = ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle();
-            MinecraftServer server = ((CraftServer) Bukkit.getServer()).getHandle().getServer();
-            EntityPlayer entityplayer = new EntityPlayer(server, world, Integer.toString(new Random().nextInt()), new ItemInWorldManager(world));
-            new DummyNetServerHandler(server, new DummyNetworkManager(), entityplayer);
+            int range = 2000;
+            int num = 1;
+            if (args.length > 0) {
+                range = Integer.parseInt(args[0]);
+            }
+            if (args.length > 1) {
+                num = Integer.parseInt(args[1]);
+            }
 
-            entityplayer.spawnIn(server.getWorldServer(entityplayer.dimension));
-            entityplayer.itemInWorldManager.a((WorldServer) entityplayer.world);
+            for (int i = 0; i < num; i++) {
+                Random random = new Random();
+                WorldServer world = ((CraftWorld) Bukkit.getWorlds().get(0)).getHandle();
+                ServerConfigurationManager serverConfigurationManager = ((CraftServer) Bukkit.getServer()).getHandle();
 
-            WorldServer worldserver = server.getWorldServer(entityplayer.dimension);
-            ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
+                EntityPlayer entityplayer = new EntityPlayer(serverConfigurationManager.getServer(), world, ChatColor.BLUE + "Bot" + random.nextInt(1000) + i, new ItemInWorldManager(world));
+                new DummyNetServerHandler(serverConfigurationManager.getServer(), new DummyNetworkManager(), entityplayer);
 
-            entityplayer.itemInWorldManager.b(world.getWorldData().getGameType());
+                entityplayer.spawnIn(world);
+                entityplayer.itemInWorldManager.a((WorldServer) entityplayer.world);
+                entityplayer.itemInWorldManager.b(world.getWorldData().getGameType());
 
-            ((CraftServer) Bukkit.getServer()).getHandle().players.add(entityplayer);
+                entityplayer.setPosition(random.nextInt(range * 2) - range, 100, random.nextInt(range * 2) - range);
 
-            entityplayer.setPosition(new Random().nextInt(500000) - 250000, 100, new Random().nextInt(500000) - 250000);
+                serverConfigurationManager.players.add(entityplayer);
+                world.addEntity(entityplayer);
+                serverConfigurationManager.a(entityplayer, (WorldServer) null);
 
-            worldserver.addEntity(entityplayer);
+                sender.sendMessage("Added player " + entityplayer.name + ChatColor.RESET + " at " + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ".");
+            }
 
-            ((CraftServer) Bukkit.getServer()).getHandle().a(entityplayer, (WorldServer) null);
-
-            sender.sendMessage("Added player " + entityplayer.name + " at " + entityplayer.locX + "," + entityplayer.locY + "," + entityplayer.locZ + ".");
             return true;
+        }
+
+        if (command.getName().equalsIgnoreCase("killbots")) {
+            ServerConfigurationManager serverConfigurationManager = ((CraftServer) Bukkit.getServer()).getHandle();
+            for (EntityPlayer entityplayer : (CopyOnWriteArrayList<EntityPlayer>) serverConfigurationManager.players) {
+                if (entityplayer.name.startsWith(ChatColor.BLUE + "Bot")) {
+                    entityplayer.netServerHandler.disconnect("");
+                    sender.sendMessage("Disconnected " + entityplayer.name);
+                }
+            }
         }
 
         if (command.getName().equalsIgnoreCase("debug")) {
