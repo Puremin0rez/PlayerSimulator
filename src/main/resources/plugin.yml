@@ -1,0 +1,26 @@
+name: PlayerSimulator
+version: ${project.version}
+description: ${project.description}
+
+author: Travis Watkins
+website: ${project.url}
+
+main: com.probablycoding.bukkit.playersimulator.PlayerSimulator
+
+commands:
+  spawn:
+    description: Spawn a fake player at a random location
+    permission: playersimulator.spawn
+  debug:
+    description: Show tick rate, memory usage, and number of chunks loaded
+    permission: playersimulator.debug
+
+permissions:
+  playersimulator:
+    description: Allow a player all plugin permissions
+    children:
+      playersimulator.spawn:
+        description: Allow a player to spawn fake players
+      playersimulator.debug:
+        description: Allow a player to see debug info
+
