@@ -22,6 +22,10 @@ public class DummyNetServerHandler extends NetServerHandler
 
     @Override
     public void disconnect(String s) {
+        WorldServer worldserver = player.q();
+
+        worldserver.kill(player);
+        worldserver.getPlayerManager().removePlayer(player);
         ((CraftServer) Bukkit.getServer()).getHandle().players.remove(player);
     }
 
