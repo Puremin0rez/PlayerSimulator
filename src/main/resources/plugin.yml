@@ -10,6 +10,7 @@ main: com.probablycoding.bukkit.playersimulator.PlayerSimulator
 commands:
   spawn:
     description: Spawn a fake player at a random location
+    usage: /<command> [count] [radius]
     permission: playersimulator.spawn
   killbots:
     description: Disconnect all fake players
