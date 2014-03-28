@@ -8,7 +8,7 @@ website: ${project.url}
 main: com.probablycoding.bukkit.playersimulator.PlayerSimulator
 
 commands:
-  spawn:
+  spawnbot:
     description: Spawn a fake player at a random location
     usage: /<command> [count] [radius]
     permission: playersimulator.spawn
@@ -23,7 +23,7 @@ permissions:
   playersimulator:
     description: Allow a player all plugin permissions
     children:
-      playersimulator.spawn:
+      playersimulator.spawnbot:
         description: Allow a player to spawn fake players
       playersimulator.killbots:
         description: Allow a player to kill off fake players

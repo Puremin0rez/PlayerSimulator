@@ -39,7 +39,7 @@ public class PlayerSimulator extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-        if (command.getName().equalsIgnoreCase("spawn")) {
+        if (command.getName().equalsIgnoreCase("spawnbot")) {
             int range = 2000;
             int num = 1;
             if (args.length > 0) {
