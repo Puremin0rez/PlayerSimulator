@@ -1,14 +1,14 @@
 package com.probablycoding.bukkit.playersimulator;
 
-import net.minecraft.server.v1_7_R1.EntityPlayer;
-import net.minecraft.server.v1_7_R1.PlayerInteractManager;
-import net.minecraft.server.v1_7_R1.PlayerList;
-import net.minecraft.server.v1_7_R1.WorldServer;
+import net.minecraft.server.v1_7_R2.EntityPlayer;
+import net.minecraft.server.v1_7_R2.PlayerInteractManager;
+import net.minecraft.server.v1_7_R2.PlayerList;
+import net.minecraft.server.v1_7_R2.WorldServer;
 import net.minecraft.util.com.google.common.base.Charsets;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 
-import org.bukkit.craftbukkit.v1_7_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_7_R2.CraftWorld;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

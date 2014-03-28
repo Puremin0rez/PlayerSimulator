@@ -1,10 +1,10 @@
 package com.probablycoding.bukkit.playersimulator;
 
-import net.minecraft.server.v1_7_R1.EnumProtocol;
-import net.minecraft.server.v1_7_R1.IChatBaseComponent;
-import net.minecraft.server.v1_7_R1.NetworkManager;
-import net.minecraft.server.v1_7_R1.Packet;
-import net.minecraft.server.v1_7_R1.PacketListener;
+import net.minecraft.server.v1_7_R2.EnumProtocol;
+import net.minecraft.server.v1_7_R2.IChatBaseComponent;
+import net.minecraft.server.v1_7_R2.NetworkManager;
+import net.minecraft.server.v1_7_R2.Packet;
+import net.minecraft.server.v1_7_R2.PacketListener;
 import net.minecraft.util.io.netty.channel.Channel;
 import net.minecraft.util.io.netty.channel.ChannelHandlerContext;
 import net.minecraft.util.io.netty.util.concurrent.GenericFutureListener;
